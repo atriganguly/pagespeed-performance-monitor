@@ -1,6 +1,6 @@
 <div align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://thesvg.org/icons/pagespeed-insights/mono.svg?color=white">
+    <source media="(prefers-color-scheme: dark)" srcset="https://thesvg.org/icons/pagespeed-insights/default.svg">
     <source media="(prefers-color-scheme: light)" srcset="https://thesvg.org/icons/pagespeed-insights/mono.svg">
     <img src="https://thesvg.org/icons/pagespeed-insights/default.svg" width="40" height="40" alt="Performance Icon"/>
   </picture>
