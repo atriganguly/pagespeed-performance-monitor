@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PageSpeed Performance Monitor</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><style>@media (prefers-color-scheme: dark) { path { fill: %23ffffff; } }</style><path d='M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L333.3 350c-3.9 5.3-11.4 6.5-16.8 2.6z'/></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,%3Csvg%20fill%3D%22%234285F4%22%20role%3D%22img%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Ctitle%3EPageSpeed%20Insights%3C%2Ftitle%3E%3Cpath%20d%3D%22M22.363%201.636H1.635C.732%201.636%200%202.37.001%203.273L0%2020.727v.003c0%20.903.733%201.634%201.635%201.634h20.73c.904%200%201.635-.734%201.635-1.637V3.273c.016-.89-.76-1.64-1.637-1.637zM3.979%202.886c.492-.507%201.279.28.77.772-.491.508-1.278-.279-.77-.771zM1.8%202.89c.507-.509%201.28.265.772.771-.493.502-1.274-.28-.772-.771zm21.7%2017.838c.012.611-.524%201.148-1.137%201.136H1.635A1.137%201.137%200%200%201%20.5%2020.727L.501%204.91H23.5v15.819zM11%2016.159l5.946-4.577c.235-.2.576.129.389.372l-.002-.002-3.936%206.35a1.638%201.638%200%200%201-2.448.405c-.785-.668-.811-1.835.05-2.548zm4.763-.75c.09-.168%202.002-3.181%202.06-3.35%202.056%201.813%203.029%204.382%202.898%207.026h-3.819c.073-1.39-.29-2.678-1.139-3.676zm-8.679%203.682H3.278c-.357-7.022%207.148-11.735%2013.39-7.92l-3.461%202.618c-3.3-.762-6.364%201.71-6.123%205.302z%22%2F%3E%3C%2Fsvg%3E">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
+<body class="preload">
   
   <nav class="navbar">
     <div class="nav-content">
-      <div class="logo"><i class="fa-solid fa-stopwatch"></i> PageSpeed Performance Monitor</div>
+      <div class="logo"><img src="data:image/svg+xml;utf8,%3Csvg%20fill%3D%22%234285F4%22%20role%3D%22img%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Ctitle%3EPageSpeed%20Insights%3C%2Ftitle%3E%3Cpath%20d%3D%22M22.363%201.636H1.635C.732%201.636%200%202.37.001%203.273L0%2020.727v.003c0%20.903.733%201.634%201.635%201.634h20.73c.904%200%201.635-.734%201.635-1.637V3.273c.016-.89-.76-1.64-1.637-1.637zM3.979%202.886c.492-.507%201.279.28.77.772-.491.508-1.278-.279-.77-.771zM1.8%202.89c.507-.509%201.28.265.772.771-.493.502-1.274-.28-.772-.771zm21.7%2017.838c.012.611-.524%201.148-1.137%201.136H1.635A1.137%201.137%200%200%201%20.5%2020.727L.501%204.91H23.5v15.819zM11%2016.159l5.946-4.577c.235-.2.576.129.389.372l-.002-.002-3.936%206.35a1.638%201.638%200%200%201-2.448.405c-.785-.668-.811-1.835.05-2.548zm4.763-.75c.09-.168%202.002-3.181%202.06-3.35%202.056%201.813%203.029%204.382%202.898%207.026h-3.819c.073-1.39-.29-2.678-1.139-3.676zm-8.679%203.682H3.278c-.357-7.022%207.148-11.735%2013.39-7.92l-3.461%202.618c-3.3-.762-6.364%201.71-6.123%205.302z%22%2F%3E%3C%2Fsvg%3E" alt="PPM Logo"> PageSpeed Performance Monitor</div>
       <div class="nav-actions">
         <button id="theme-toggle" aria-label="Toggle Dark Mode"><i class="fa-solid fa-moon"></i></button>
         <a href="https://github.com/atriganguly/pagespeed-performance-monitor" target="_blank" class="github-btn"><i class="fa-brands fa-github"></i> View GitHub Repo</a>
@@ -20,67 +20,92 @@
     </div>
   </nav>
 
-  <header class="hero">
-    <div class="hero-text fade-in">
-      <h1>Automated, enterprise-grade web performance tracking.</h1>
-      <p>Built entirely within Google Sheets. Zero infrastructure footprint.</p>
-    </div>
-
-    <div class="mockup-container slide-up">
-      <div class="sheet-tabs">
-        <span class="tab">Settings</span>
-        <span class="tab active">Dashboard</span>
-        <span class="tab">History</span>
+  <main class="console-workspace">
+    <header class="hero">
+      <div class="hero-text fade-in">
+        <h1>Automated, enterprise-grade web performance tracking.</h1>
+        <p>Built entirely within Google Sheets. Zero infrastructure footprint.</p>
       </div>
-      <div class="sheet-mockup-wrapper">
-        <div class="sheet-mockup" aria-live="polite">
-          <div class="sheet-header">
-            <span>Org ID</span><span>Organization</span><span>Label</span><span>URL</span><span>Device</span><span>Score</span><span>LCP (s)</span><span>CLS</span><span>TBT (ms)</span><span>INP</span><span>Status</span><span>Timestamp</span>
+
+      <div class="mockup-container slide-up">
+        <div class="sheet-tabs">
+          <div class="tab-group">
+            <span class="tab">Settings</span>
+            <span class="tab active">Dashboard</span>
+            <span class="tab">History</span>
           </div>
-          <div id="simulation-rows"></div>
+          <div class="lighthouse-mini-panel">
+            <div class="gauge-wrapper">
+              <svg class="radial-gauge" viewBox="0 0 36 36">
+                <path class="gauge-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                <path id="gauge-progress" class="gauge-fill" stroke-dasharray="0, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+              </svg>
+              <div id="gauge-text" class="gauge-value">--</div>
+            </div>
+            <span class="gauge-label">Lighthouse Audit</span>
+          </div>
         </div>
-      </div>
-      <div class="mockup-controls">
-        <button id="simulate-btn" class="primary-btn">Simulate API Scan</button>
-      </div>
-      <div class="progress-bar-container"><div id="progress-bar"></div></div>
-    </div>
-  </header>
+        <div class="sheet-mockup-wrapper">
+          <div class="sheet-mockup" aria-live="polite">
+            <div class="sheet-header">
+              <span>Org ID</span><span>Organization</span><span>Label</span><span>URL</span><span>Device</span><span>Score</span><span>LCP (s)</span><span>CLS</span><span>TBT (ms)</span><span>INP</span><span>Status</span><span>Timestamp</span>
+            </div>
+            <div id="simulation-rows"></div>
+          </div>
+        </div>
+        
+        <div class="apps-script-terminal">
+          <div class="terminal-header">
+            <span class="terminal-title"><i class="fa-solid fa-terminal"></i> Google Apps Script Execution Engine</span>
+            <span id="terminal-status-badge" class="terminal-status">STATUS: IDLE</span>
+          </div>
+          <div id="terminal-log" class="terminal-body">
+            <div class="log-line system-msg">> Systems initialized. Awaiting background relay runtime trigger instantiation...</div>
+          </div>
+        </div>
 
-  <section class="architecture-section">
-    <div class="section-title">
-      <h2>Stateful Execution Engine</h2>
-      <p>A "Relay Runner" pattern that mathematically guarantees background execution without hitting Google's 6-minute timeout wall.</p>
-    </div>
+        <div class="mockup-controls">
+          <button id="simulate-btn" class="primary-btn">Simulate API Scan</button>
+        </div>
+        <div class="progress-bar-container"><div id="progress-bar"></div></div>
+      </div>
+    </header>
 
-    <div class="flowchart-container">
-      <div class="flow-node active" id="node-1">1. startDailyScanUI() <br><small>(Clears Execution Tokens)</small></div>
-      <i class="fa-solid fa-arrow-down flow-arrow" id="arrow-1"></i>
-      
-      <div class="flow-node" id="node-2">2. Run Loop Iterator <br><small>(Process Next URL)</small></div>
-      <i class="fa-solid fa-arrow-down flow-arrow" id="arrow-2"></i>
-      
-      <div class="flow-split">
-        <div class="split-side">
-          <div class="split-label">Time &lt; 4.5 Mins</div>
-          <div class="flow-node sub-node" id="node-3">3. Fetch PageSpeed Insight</div>
-        </div>
-        <div class="split-side">
-          <div class="split-label">Time &ge; 4.5 Mins Trigger Wall</div>
-          <div class="flow-node sub-node highlight-node" id="node-4">4. Serialize VDB_STATE</div>
-        </div>
+    <section class="architecture-section">
+      <div class="section-title">
+        <h2>Stateful Execution Engine</h2>
+        <p>A "Relay Runner" pattern that mathematically guarantees background execution without hitting Google's 6-minute timeout wall.</p>
       </div>
-      
-      <div class="flow-split-arrows">
-        <i class="fa-solid fa-arrow-rotate-left flow-arrow loop-arrow" id="arrow-loop"></i>
-        <i class="fa-solid fa-arrow-down flow-arrow right-arrow" id="arrow-4"></i>
+
+      <div class="flowchart-container">
+        <div class="flow-node active" id="node-1">1. startDailyScanUI() <br><small>(Clears Execution Tokens)</small></div>
+        <i class="fa-solid fa-arrow-down flow-arrow" id="arrow-1"></i>
+        
+        <div class="flow-node" id="node-2">2. Run Loop Iterator <br><small>(Process Next URL)</small></div>
+        <i class="fa-solid fa-arrow-down flow-arrow" id="arrow-2"></i>
+        
+        <div class="flow-split">
+          <div class="split-side">
+            <div class="split-label">Time &lt; 4.5 Mins</div>
+            <div class="flow-node sub-node" id="node-3">3. Fetch PageSpeed Insight</div>
+          </div>
+          <div class="split-side">
+            <div class="split-label">Time &ge; 4.5 Mins Trigger Wall</div>
+            <div class="flow-node sub-node highlight-node" id="node-4">4. Serialize VDB_STATE</div>
+          </div>
+        </div>
+        
+        <div class="flow-split-arrows">
+          <i class="fa-solid fa-arrow-rotate-left flow-arrow loop-arrow" id="arrow-loop"></i>
+          <i class="fa-solid fa-arrow-down flow-arrow right-arrow" id="arrow-4"></i>
+        </div>
+        
+        <div class="flow-node" id="node-5" style="margin-left: auto; max-width: 350px;">5. Flush Memory Arrays to Sheet</div>
+        <i class="fa-solid fa-arrow-down flow-arrow right-arrow" id="arrow-5"></i>
+        <div class="flow-node highlight-node" id="node-6" style="margin-left: auto; max-width: 350px;">6. Spawn continueRelayScan (60s)</div>
       </div>
-      
-      <div class="flow-node" id="node-5" style="margin-left: auto; max-width: 350px;">5. Flush Memory Arrays to Sheet</div>
-      <i class="fa-solid fa-arrow-down flow-arrow right-arrow" id="arrow-5"></i>
-      <div class="flow-node highlight-node" id="node-6" style="margin-left: auto; max-width: 350px;">6. Spawn continueRelayScan (60s)</div>
-    </div>
-  </section>
+    </section>
+  </main>
 
   <section class="bento-grid">
     <div class="bento-card">
@@ -103,6 +128,61 @@
   <footer>
     <p>Created by <a href="https://github.com/atriganguly" target="_blank">@atriganguly</a></p>
   </footer>
+
+  <div id="sre-toast" class="sre-notification-toast">
+    <div class="toast-header-bar">
+      <span class="toast-alert-title"><i class="fa-solid fa-triangle-exclamation"></i> CRITICAL INCIDENT DETECTED</span>
+      <button id="close-toast-btn" class="toast-close-btn">&times;</button>
+    </div>
+    <div class="toast-body-content">
+      <p><strong>[SRE Alert Dispatch]</strong> Breach on <code>amazon.com</code> (Mobile Score: <span style="color:var(--fail-color); font-weight:bold;">65</span>). SLA violation protocol active.</p>
+    </div>
+    <button id="view-email-btn" class="toast-action-btn">View HTML Outbox Payload</button>
+  </div>
+
+  <div id="email-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-envelope"></i> Automated Outbox Email Payload Preview</h3>
+        <button id="close-modal-btn" class="close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="email-envelope-meta">
+          <div><strong>To:</strong> sre-alerts@organization.com, lead-ops@organization.com</div>
+          <div><strong>Subject:</strong> ⚡ Page Performance Alert || PageSpeed Insights</div>
+        </div>
+        <div class="email-iframe-container">
+          <div class="mock-email-body">
+            <div style="font-family: Consolas, monospace; color: #333; background:#ffffff; padding:20px; border-radius:4px;">
+              <h2 style="color: #c0392b; font-size:1.4rem; margin-bottom:10px; font-family:Arial,sans-serif;">⚡ Page Performance Alert || PageSpeed Insights</h2>
+              <p style="font-size:13px; margin-bottom:15px; font-family:Arial,sans-serif;">The following properties have dropped below acceptable thresholds.</p>
+              <hr style="border:none; border-top:1px solid #eee; margin-bottom:15px;">
+              <p style="font-size:13px; line-height:1.6; font-family:Arial,sans-serif;">
+                <strong>Property:</strong> Retail Domain Track<br>
+                <strong>Metadata:</strong> [Org ID: INT-02] [Org: Internal] [Label: Retail]<br>
+                <strong>URL:</strong> <a href="https://amazon.com" target="_blank" style="color:#1a73e8;">https://amazon.com</a><br>
+                <strong>Device:</strong> mobile<br>
+                <strong>Score:</strong> <span style="color:red; font-weight:bold;">65</span> (Threshold: 85)<br>
+                <strong>Metrics:</strong> LCP: 3.40s | TBT: 450ms<br>
+                <a href="https://pagespeed.web.dev/report?url=https%3A%2F%2Famazon.com" target="_blank" style="color:#1a73e8; font-weight:bold; text-decoration:underline;">View Debug Report</a>
+              </p>
+              <hr style="border:none; border-top:1px solid #eee; margin-top:15px; margin-bottom:15px;">
+              <p style="font-size:13px; font-family:Arial,sans-serif;">Please investigate.</p>
+              <p style="font-size: 12px; color: #777; margin-top: 20px; line-height: 1.6; font-family: Arial, sans-serif;">
+                Analyzed, Prepared & Delivered by 
+                <a href="https://github.com/atriganguly/pagespeed-performance-monitor" target="_blank" style="color: #2c3e50; font-weight: bold; text-decoration: none;">
+                  <img src="https://www.gstatic.com/images/branding/product/1x/pagespeed_64dp.png" width="14" height="14" style="vertical-align: -2px; display: inline-block; margin: 0; padding: 0;" alt="PageSpeed Insights">&nbsp;PageSpeed Performance Monitor
+                </a>.
+                <br>
+                Bug Reports & Feature Requests: 
+                <img src="https://api.iconify.design/fa6-brands/github.svg?color=111827" width="14" height="14" style="vertical-align: -2px; display: inline-block; margin: 0; padding: 0;" alt="GitHub">&nbsp;<a href="https://github.com/atriganguly/pagespeed-performance-monitor/issues" target="_blank" style="color: #777; text-decoration: underline;">Open an Issue</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="app.js"></script>
 </body>

@@ -42,11 +42,11 @@ function runDailyScan() {
   const names = settingsSheet.getRange(CONFIG.DATA_START_ROW, CONFIG.SETTINGS_COLS.FRIENDLY_NAME, numRows, 1).getValues();
   const statuses = settingsSheet.getRange(CONFIG.DATA_START_ROW, CONFIG.SETTINGS_COLS.STATUS, numRows, 1).getValues();
   
-  // Fetch new metadata columns into memory
+  // Fetch metadata columns into memory
   const orgIds = settingsSheet.getRange(CONFIG.DATA_START_ROW, CONFIG.SETTINGS_COLS.ORG_ID, numRows, 1).getValues();
   const orgs = settingsSheet.getRange(CONFIG.DATA_START_ROW, CONFIG.SETTINGS_COLS.ORGANIZATION, numRows, 1).getValues();
   const labels = settingsSheet.getRange(CONFIG.DATA_START_ROW, CONFIG.SETTINGS_COLS.LABEL, numRows, 1).getValues();
-
+  
   // Read configuration cells based on mapping
   const sreEmails = settingsSheet.getRange(CONFIG.DATA_START_ROW, CONFIG.SETTINGS_COLS.SRE_EMAILS).getValue();
   const mobileThreshold = settingsSheet.getRange(CONFIG.DATA_START_ROW, CONFIG.SETTINGS_COLS.MOBILE_PASS).getValue() || CONFIG.THRESHOLDS.DEFAULT_MOBILE;
@@ -55,10 +55,9 @@ function runDailyScan() {
   let alertQueue = [];
   let dashboardBatch = [];
   let historyBatch = [];
-
   const getVal = (audit) => audit && audit.numericValue ? audit.numericValue : 0;
   const getDisp = (audit) => audit && audit.displayValue ? audit.displayValue : 'N/A';
-
+  
   for (let i = state.currentIndex; i < urls.length; i++) {
     let rawUrl = urls[i][0];
     let rowStatus = statuses[i][0];
@@ -69,7 +68,7 @@ function runDailyScan() {
     let currentOrg = orgs[i][0] || 'N/A';
     let currentLabel = labels[i][0] || 'N/A';
     
-    if (rowStatus === false) continue; // Skip execution if status toggle is false
+    if (rowStatus === false) continue;
     if (!rawUrl) continue;
 
     let cleanUrl = rawUrl.trim();
@@ -115,7 +114,7 @@ function runDailyScan() {
           jsTime: Math.round(getVal(audits['bootup-time'])),
           renderBlock: Math.round(getVal(audits['render-blocking-resources']))
         };
-
+        
         historyBatch.push([
           metrics.timestamp, metrics.url, metrics.device, metrics.perf, metrics.access, 
           metrics.bestPrac, metrics.seo, metrics.pwa, metrics.fcp, metrics.lcp, 
@@ -123,17 +122,16 @@ function runDailyScan() {
           metrics.field_fid, metrics.field_cls, metrics.field_inp, metrics.ttfb, 
           metrics.bytes, metrics.dom, metrics.mainThread, metrics.jsTime, metrics.renderBlock
         ]);
-
+        
         const threshold = (device === 'mobile') ? mobileThreshold : desktopThreshold;
         const status = (metrics.perf >= threshold) ? 'PASS' : 'FAIL';
-
-        // Prepend metadata fields to the dashboard row
+        
         dashboardBatch.push([
           currentOrgId, currentOrg, currentLabel,
           hyperLinkFormula, metrics.device, metrics.perf, metrics.lcp, metrics.cls, 
           metrics.tbt, metrics.field_inp, status, metrics.timestamp
         ]);
-
+        
         if (metrics.perf < threshold) {
           alertQueue.push({
             orgId: currentOrgId,
@@ -193,7 +191,6 @@ function fetchPageSpeedData(url, strategy) {
     `category=seo`,
     `category=pwa`
   ].join('&');
-
   const response = UrlFetchApp.fetch(`${apiEndpoint}?${params}`, { muteHttpExceptions: true });
   const contentText = response.getContentText();
   
@@ -274,16 +271,12 @@ function sendWeeklyReport() {
   const formulas = range.getFormulas();
   
   let html = CONFIG.EMAIL.LEAD_HTML_HEADER;
-
   data.forEach((row, index) => {
-    // Array indices are shifted +3 due to Org ID, Organization, and Label insertion
     if(!row[3]) return; 
     
-    // Status is now at row[10]
     const scoreColor = (row[10] === 'PASS') ? '#27ae60' : '#c0392b'; 
     const scoreStyle = `font-weight: bold; color: ${scoreColor};`;
 
-    // Extract URL from the HYPERLINK formula
     let propertyUrl = "#";
     const cellFormula = formulas[index][3];
     if (cellFormula) {
@@ -306,9 +299,9 @@ function sendWeeklyReport() {
       </tr>`;
   });
 
-  html += CONFIG.EMAIL.LEAD_HTML_FOOTER;
+  html += "</table>" + CONFIG.EMAIL.SHARED_HTML_FOOTER;
 
-  MailApp.sendEmail({
+MailApp.sendEmail({
     to: emails,
     subject: CONFIG.EMAIL.LEAD_SUBJECT,
     htmlBody: html
@@ -340,7 +333,7 @@ function sendSREAlert(failures, recipients, isChunk = false) {
     `;
   });
 
-  html += `<p>Please investigate.</p></div>`;
+  html += `<p>Please investigate.</p>` + CONFIG.EMAIL.SHARED_HTML_FOOTER + `</div>`;
 
   MailApp.sendEmail({
     to: recipients,
@@ -354,7 +347,7 @@ function sendSREAlert(failures, recipients, isChunk = false) {
  */
 function onOpen() {
   SpreadsheetApp.getUi()
-    .createMenu('Monitor Tools')
+    .createMenu('⚡ PPM Tools')
     .addItem('Run Daily Scan', 'startDailyScanUI')
     .addItem('Fetch Missing Friendly Names', 'batchFetchFriendlyNames')
     .addItem('Send Weekly Report', 'sendWeeklyReport')

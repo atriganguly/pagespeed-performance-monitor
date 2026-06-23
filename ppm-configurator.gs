@@ -41,9 +41,9 @@ const CONFIG = {
 
   // Email Content & Templates
   EMAIL: {
-    SRE_SUBJECT: "Page Performance Alert || PageSpeed Insights",
-    SRE_PARTIAL_SUBJECT: "Page Performance Alert || PageSpeed Insights (Partial Run)",
-    LEAD_SUBJECT: "Page Performance Report || PageSpeed Insights",
+    SRE_SUBJECT: "⚡ Page Performance Alert || PageSpeed Insights",
+    SRE_PARTIAL_SUBJECT: "⚡ Page Performance Alert || PageSpeed Insights (Partial Run)",
+    LEAD_SUBJECT: "⚡ Page Performance Report || PageSpeed Insights",
     
     // Header for the weekly leadership report
     LEAD_HTML_HEADER: `
@@ -62,13 +62,16 @@ const CONFIG = {
             <th style="padding: 10px; border: 1px solid #ddd;">Status</th>
           </tr>`,
           
-    // Footer for the weekly leadership report
-    LEAD_HTML_FOOTER: `
-        </table>
+    // Shared brand footer for weekly reports and SRE automated alert dispatches
+    SHARED_HTML_FOOTER: `
         <p style="font-size: 12px; color: #777; margin-top: 20px; line-height: 1.6;">
-          Analyzed, Prepared & Delivered by <a href="https://github.com/atriganguly/pagespeed-performance-monitor" target="_blank" style="color: #2c3e50; font-weight: bold; text-decoration: none;">PageSpeed Performance Monitor</a>.
+          Analyzed, Prepared & Delivered by 
+          <a href="https://github.com/atriganguly/pagespeed-performance-monitor" target="_blank" style="color: #2c3e50; font-weight: bold; text-decoration: none;">
+            <img src="https://www.gstatic.com/images/branding/product/1x/pagespeed_64dp.png" width="14" height="14" style="vertical-align: -2px; display: inline-block; margin: 0; padding: 0;" alt="PageSpeed Insights">&nbsp;PageSpeed Performance Monitor
+          </a>.
           <br>
-          Bug Reports & Feature Requests: <a href="https://github.com/atriganguly/pagespeed-performance-monitor/issues" target="_blank" style="color: #777; text-decoration: underline;">Open an Issue</a>.
+          Bug Reports & Feature Requests: 
+          <a href="https://github.com/atriganguly/pagespeed-performance-monitor/issues" target="_blank" style="color: #777; text-decoration: none;"><picture><source media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/fa6-brands/github.svg?color=white"><source media="(prefers-color-scheme: light)" srcset="https://api.iconify.design/fa6-brands/github.svg?color=111827"><img src="https://api.iconify.design/fa6-brands/github.svg?color=111827" width="14" height="14" style="vertical-align: -2px; display: inline-block; margin: 0; padding: 0;" alt="GitHub"></picture></a>&nbsp;<a href="https://github.com/atriganguly/pagespeed-performance-monitor/issues" target="_blank" style="color: #777; text-decoration: underline;">Open an Issue</a>.
         </p>
       </div>`
   }

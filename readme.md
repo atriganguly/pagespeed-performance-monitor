@@ -1,8 +1,8 @@
 <div align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/fa6-solid/stopwatch.svg?color=white">
-    <source media="(prefers-color-scheme: light)" srcset="https://api.iconify.design/fa6-solid/stopwatch.svg?color=111827">
-    <img src="https://api.iconify.design/fa6-solid/stopwatch.svg?color=111827" width="40" height="40" alt="Performance Icon"/>
+    <source media="(prefers-color-scheme: dark)" srcset="https://thesvg.org/icons/pagespeed-insights/mono.svg?color=white">
+    <source media="(prefers-color-scheme: light)" srcset="https://thesvg.org/icons/pagespeed-insights/mono.svg">
+    <img src="https://thesvg.org/icons/pagespeed-insights/default.svg" width="40" height="40" alt="Performance Icon"/>
   </picture>
   <h1>PageSpeed Performance Monitor</h1>
   <p>Automated, enterprise-grade web performance tracking built entirely within Google Sheets.</p>
@@ -59,7 +59,7 @@ For security, this script does not store your API key in the source code.
 5. Click **Save script properties**.
 
 ### 3. Usage
-Once authorized, a new menu titled **Monitor Tools** will automatically appear in your Google Sheet's top navigation bar.
+Once authorized, a new menu titled **⚡ PPM Tools** will automatically appear in your Google Sheet's top navigation bar.
 * **Run Daily Scan:** Initiates a full audit of all active URLs in your Settings tab.
 * **Fetch Missing Friendly Names:** Automatically fetches the HTML website titles for any new URLs you add.
 * **Send Weekly Report:** Dispatches a clean HTML email summary to leadership, including organizational metadata.
