@@ -17,7 +17,7 @@ Created by [@atriganguly](https://github.com/atriganguly)
 ---
 
 ![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen)
-![Version](https://img.shields.io/badge/Version-1.0.0-blue)
+![Version](https://img.shields.io/badge/Version-1.0.0--beta-blue)
 ![License](https://img.shields.io/badge/License-GPL--3.0-green)
 ![Language](https://img.shields.io/badge/Language-Google%20Apps%20Script%20%2F%20JavaScript-informational)
 
@@ -320,13 +320,13 @@ Autonomous LLMs, coding agents, and automated refactoring routines operating on 
 
 ## Support & Contributions
 
-This open-source project is maintained by [@atriganguly](https://github.com/atriganguly).
+This project is actively maintained to deliver reliable, open-source automation and execution infrastructure.
 
-* **Bug Reports & Feature Suggestions:** [Open an Issue on GitHub](https://github.com/atriganguly/pagespeed-performance-monitor/issues)
-* **Contributions:** Pull requests are welcome! Ensure all agent directives and JSDoc rules are met before submitting code changes.
+* **Bug Reports & Feature Suggestions:** [https://github.com/atriganguly/support/](https://github.com/atriganguly/support/)
+* **Direct Enquiries:** Contact [@atriganguly](https://github.com/atriganguly) for technical questions, contributions, or pull request reviews.
 
 ---
 
 ## License
 
-This project is licensed under the **GNU General Public License v3.0** (GPL-3.0) - see the [LICENSE](LICENSE) file for details.
+Distributed under the [GNU General Public License v3.0](LICENSE).
