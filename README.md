@@ -97,7 +97,7 @@ The application separates UI presentation, orchestration, API integration, and p
 +--------------+          +----------------+          +--------------+
 | CONFIG State |          | Relay Runner   |          | Batch Title  |
 | (CONFIG /    |          | State Machine  |          | Cleaner      |
-|  Properties) |          | (VDB_STATE)    |          | (UrlFetch)   |
+|  Properties) |          | (PPM_STATE)    |          | (UrlFetch)   |
 +--------------+          +----------------+          +--------------+
                                   |
                                   v
@@ -129,7 +129,7 @@ To guarantee operational stability under platform limits, PageSpeed Performance 
 ### 1. Stateful Continuation & Relay ("Relay Runner")
 When `runDailyScan()` executes, it tracks its runtime using `Date.now()`. If elapsed time exceeds `CONFIG.MAX_EXECUTION_TIME_MS` (4.5 minutes), the script:
 1. Flushes currently processed memory arrays (`dashboardBatch`, `historyBatch`) to Google Sheets.
-2. Serializes the current array index into `PropertiesService.getScriptProperties()` as `VDB_STATE`.
+2. Serializes the current array index into `PropertiesService.getScriptProperties()` as `PPM_STATE`.
 3. Calls `setupRelayBaton()` to dynamically spawn a one-time background trigger for `continueRelayScan` set to fire after 60 seconds.
 4. Halts execution cleanly.
 

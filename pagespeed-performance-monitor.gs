@@ -7,7 +7,7 @@
  * Primary entry point. Wraps the relay scan to ensure state is clean on manual runs.
  */
 function startDailyScanUI() {
-  PropertiesService.getScriptProperties().deleteProperty('VDB_STATE');
+  PropertiesService.getScriptProperties().deleteProperty('PPM_STATE');
   cleanUpRelayBatons();
   runDailyScan();
 }
@@ -23,7 +23,7 @@ function runDailyScan() {
   const dashSheet = ss.getSheetByName(CONFIG.SHEETS.DASHBOARD);
   const scriptProps = PropertiesService.getScriptProperties();
 
-  let state = JSON.parse(scriptProps.getProperty('VDB_STATE'));
+  let state = JSON.parse(scriptProps.getProperty('PPM_STATE'));
   if (!state) {
     const lastDashRow = dashSheet.getLastRow();
     const lastDashCol = dashSheet.getLastColumn();
@@ -158,7 +158,7 @@ function runDailyScan() {
         sendSREAlert(alertQueue, sreEmails, true);
       }
 
-      scriptProps.setProperty('VDB_STATE', JSON.stringify({
+      scriptProps.setProperty('PPM_STATE', JSON.stringify({
         currentIndex: i + 1,
         isContinuation: true
       }));
@@ -172,7 +172,7 @@ function runDailyScan() {
     sendSREAlert(alertQueue, sreEmails, false);
   }
 
-  scriptProps.deleteProperty('VDB_STATE');
+  scriptProps.deleteProperty('PPM_STATE');
   cleanUpRelayBatons();
 }
 

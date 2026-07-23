@@ -249,7 +249,7 @@ document.addEventListener("DOMContentLoaded", () => {
     nodes.a1.classList.add("processing-highlight");
     
     await new Promise(r => setTimeout(r, 1000));
-    logToTerminal("PropertiesService.deleteProperty('VDB_STATE') flushed cleanly.", "system-msg");
+    logToTerminal("PropertiesService.deleteProperty('PPM_STATE') flushed cleanly.", "system-msg");
     logToTerminal("Instantiating bulk 2D boundary grid reading operation from Settings tab.", "system-msg");
     
     progressBarContainer.classList.add("active");
