@@ -36,10 +36,12 @@ Created by [@atriganguly](https://github.com/atriganguly)
 9. [Operational Execution Modes](#operational-execution-modes)
 10. [Data Lifecycle & Output Schema](#data-lifecycle--output-schema)
 11. [Deployment & Infrastructure](#deployment--infrastructure)
-12. [Troubleshooting & Diagnostics](#troubleshooting--diagnostics)
-13. [AI Agent Execution Boundaries](#ai-agent-execution-boundaries)
-14. [Support & Contributions](#support--contributions)
-15. [License](#license)
+12. [Local Development & Testing](#local-development--testing)
+13. [Frontend Deployment](#frontend-deployment)
+14. [Troubleshooting & Diagnostics](#troubleshooting--diagnostics)
+15. [AI Agent Execution Boundaries](#ai-agent-execution-boundaries)
+16. [Support & Contributions](#support--contributions)
+17. [License](#license)
 
 ---
 
@@ -81,7 +83,7 @@ PageSpeed Performance Monitor resolves these structural constraints through an i
 
 The application separates UI presentation, orchestration, API integration, and persistent Google Sheets storage into clean operational layers.
 
-```
+```text
 +-------------------------------------------------------------------+
 |                        Google Sheets UI                           |
 |       (Custom 'PPM Tools' Menu / Settings / Dashboard / History)  |
@@ -180,7 +182,7 @@ System settings, column mappings, and threshold defaults are configured inside `
 ### Prerequisites
 
 * A Google Account with access to Google Sheets and Google Apps Script.
-* A Google Cloud PageSpeed Insights API Key ([Get an API Key](https://developers.google.com/speed/docs/insights/v5/get-started)).
+* A Google Cloud project with the PageSpeed Insights API enabled.
 
 ### Step-by-Step Setup
 
@@ -190,20 +192,26 @@ System settings, column mappings, and threshold defaults are configured inside `
    * `Dashboard`
    * `History`
 
-2. **Add Script Files**
+2. **Generate API Credentials**
+   * Navigate to the [Google Cloud Console](https://console.cloud.google.com/).
+   * Create a new project and enable the **PageSpeed Insights API**.
+   * Go to **APIs & Services > Credentials** and generate an API Key.
+   * *Security Best Practice:* Apply API key restrictions. Set application restrictions to HTTP referrers or IP addresses if applicable, and restrict the key specifically to the PageSpeed Insights API.
+
+3. **Add Script Files**
    Open **Extensions > Apps Script** and copy the codebase files into the editor:
    * `ppm-configurator.gs`
    * `pagespeed-performance-monitor.gs`
    * `ppm-url-cleaner.gs`
 
-3. **Configure API Credentials**
+4. **Configure Secure Properties**
    In the Apps Script IDE:
    * Go to **Project Settings** (gear icon) > **Script Properties**.
    * Click **Add script property**.
    * Set **Property**: `PAGE_SPEED_API_KEY`
    * Set **Value**: `<YOUR_GOOGLE_CLOUD_API_KEY>`
 
-4. **Populate Settings Header Columns**
+5. **Populate Settings Header Columns**
    In the `Settings` tab, set up the following columns (Row 1):
    * `Col A`: Org ID
    * `Col B`: Organization
@@ -216,7 +224,7 @@ System settings, column mappings, and threshold defaults are configured inside `
    * `Col I`: Mobile Pass Threshold
    * `Col J`: Desktop Pass Threshold
 
-5. **Initialize System**
+6. **Initialize System**
    Refresh your Google Sheet. The custom **PPM Tools** menu will automatically appear in the top toolbar.
 
 ---
@@ -275,12 +283,48 @@ To automate PageSpeed Performance Monitor without manual intervention:
 1. Open the Google Apps Script Editor (**Extensions > Apps Script**).
 2. Select **Triggers** (clock icon) in the left sidebar.
 3. Click **Add Trigger** (bottom right):
-   * **Choose function to run:** `startDailyScanUI`
+   * **Choose function to run:** `runDailyScan`
    * **Choose deployment:** `Head`
    * **Select event source:** `Time-driven`
    * **Select type of time based trigger:** `Day timer`
    * **Select time of day:** Choose preferred off-peak execution hours (e.g., 1am to 2am).
 4. Click **Save**.
+
+---
+
+## Local Development & Testing
+
+For active development, bypass the browser IDE using the local command line.
+
+### 1. Local Backend Syncing (Clasp)
+Google's `clasp` CLI allows for local git versioning of the `.gs` files.
+1. Install `clasp` globally: `npm install -g @google/clasp`
+2. Authenticate with Google: `clasp login`
+3. Clone the Apps Script project: `clasp clone <YOUR_SCRIPT_ID>` (Find Script ID in **Project Settings**).
+4. After local modifications, deploy changes: `clasp push`
+
+### 2. Validating State & URL Sanitization Safely
+* **Testing Regex & Sanitization:** To test `ppm-url-cleaner.gs` against edge-case URLs, populate the `Settings` tab with malformed entries (e.g., missing protocols, query strings). Run `batchFetchFriendlyNames` from the IDE and monitor execution logs without expending PageSpeed API quotas.
+* **Testing Relay Continuations:** To test the state machine, temporarily modify `CONFIG.MAX_EXECUTION_TIME_MS` in `ppm-configurator.gs` to a low value (e.g., `10000` for 10 seconds). Run `startDailyScanUI` and verify that the trigger correctly halts execution, saves the `PPM_STATE`, and spawns the `continueRelayScan` trigger. Revert the config to `270000` after testing.
+
+---
+
+## Frontend Deployment
+
+The `/docs` directory serves as the visual architecture representation and standalone web interface.
+
+### 1. Local UI Testing
+To develop frontend assets (`docs/index.html`, `docs/app.js`, `docs/style.css`) without CORS constraints, run a local web server:
+* Using Node.js: `npx serve docs`
+* Using Python: `python3 -m http.server --directory docs`
+* Open `http://localhost:3000` or `http://localhost:8000` to preview changes.
+
+### 2. Deploying to GitHub Pages
+1. Ensure all modified static files are committed to the `main` branch under the `/docs` directory.
+2. In the GitHub repository, navigate to **Settings > Pages**.
+3. Under **Build and deployment**, select **Deploy from a branch**.
+4. Set the **Branch** to `main` and the folder to `/docs`.
+5. Click **Save**. The documentation will deploy at your repository's `.github.io` URL.
 
 ---
 
